@@ -2,6 +2,8 @@
 
 Professor Thomas McDade, Jesus Serrano, Stacy Caeiro, and Randy Truong 
 
+# Description 
+
 # Abstract 
 
 # Introduction 
@@ -22,7 +24,7 @@ Special thanks to (in no order of importance):
 **Dr. Thomas McDade** for the original research and project idea
 
 
-**Jesus Serrano** for the original data analysis, parsing, and creation and presentation of the data findings. 
+**Jesus Serrano** for the original data analysis and parsing, as well as the creation and presentation of the data findings at a research conference. 
 
 
 **Keegan Krause**, **Dr. Koning**, and **Dr. Miller** for providing in lab training 
