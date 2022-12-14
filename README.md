@@ -16,7 +16,7 @@ In this project, we will be analyzing inflammation and its possible correlation 
 # Conclusions 
 
 # Acknowledgements
-Special thanks to 
+Special thanks to (in no order of importance): 
 
 
 **Dr. Thomas McDade** for the original research and project idea
