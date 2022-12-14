@@ -15,3 +15,14 @@ In this project, we will be analyzing inflammation and its possible correlation 
 
 # Conclusions 
 
+# Acknowledgements
+Special thanks to 
+
+
+Thomas McDade for the original research and project idea
+
+
+Jesus Serrano for the original data analysis, parsing, and by-hand calculations
+
+
+Keegan Krause, Dr. Koning, and Dr. Miller for providing in lab training. 
