@@ -22,7 +22,7 @@ Special thanks to
 **Dr. Thomas McDade** for the original research and project idea
 
 
-**Jesus Serrano** for the original data analysis, parsing, and by-hand calculations
+**Jesus Serrano** for the original data analysis, parsing, and by-hand calculations in Excel
 
 
-**Keegan Krause**, **Dr. Koning**, and **Dr. Miller** for providing in lab training. 
+**Keegan Krause**, **Dr. Koning**, and **Dr. Miller** for providing in lab training 
