@@ -53,12 +53,12 @@ clean_asian_df <- asian_df %>%
 #join dfs together by questions column 
 white_and_hispanic_df %>%
   inner_join(clean_white_df,clean_hispanic_df, 
-                                    by = "Question" ) %>%
-  pivot_longer(
-    cols = -Question,
-    names_to = "Race.x",
-    values_to = "Mean.x" 
-  )
+                                    by = "Question" )
+ # pivot_longer(
+ #   cols = -Question,
+ #   names_to = "Race.x",
+ #   values_to = "Mean.x" 
+ # )
 
 black_and_asian_df <- inner_join(clean_asian_df, clean_black_df,
                                  by = "Question")
