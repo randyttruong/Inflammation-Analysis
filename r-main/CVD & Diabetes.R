@@ -22,7 +22,7 @@ clean_hispanic_df <- hispanic_df %>%
   filter(Question %in% c("Diagnosed with any CVD",
                          "Ever diagnosed with diabetes W5")) %>%
   cbind(race_column_hispanic) %>%
-  rename(Race = race_column_hispanic)
+  rename(Race = race_column_hispanic) 
   
 clean_white_df <- white_df %>%
   rename(Question = ...1) %>%
@@ -51,18 +51,39 @@ clean_asian_df <- asian_df %>%
 
 
 #join dfs together by questions column 
-white_and_hispanic_df %>%
-  inner_join(clean_white_df,clean_hispanic_df, 
-                                    by = "Question" )
- # pivot_longer(
- #   cols = -Question,
- #   names_to = "Race.x",
- #   values_to = "Mean.x" 
- # )
+white_and_hispanic_df <- inner_join(clean_white_df,clean_hispanic_df, 
+                                    by = "Question" ) %>%
+  
+  pivot_longer(
+   cols = c(Race.x,Race.y),
+   names_to = "Race.x",
+   values_to = "Race.y"
+  ) %>%
+  pivot_longer(
+    cols = c(Mean.x, Mean.y),
+    names_to = "Mean.x",
+    values_to = "Mean.y"
+  ) %>%
+  select(c(Question,Mean.y,Race.y)) %>%
+  rename(Mean = Mean.y, Race = Race.y)
 
 black_and_asian_df <- inner_join(clean_asian_df, clean_black_df,
-                                 by = "Question")
+                                 by = "Question") %>%
+  pivot_longer(
+    cols = c(Race.x,Race.y),
+    names_to = "Race.x",
+    values_to = "Race.y"
+  ) %>%
+  pivot_longer(
+    cols = c(Mean.x, Mean.y),
+    names_to = "Mean.x",
+    values_to = "Mean.y"
+  ) %>%
+  select(c(Question,Mean.y,Race.y)) %>%
+  rename(Mean = Mean.y, Race = Race.y)
+
 all_races_df <- inner_join(white_and_hispanic_df, black_and_asian_df, 
                            by = "Question")
+
 #visualize 
 
