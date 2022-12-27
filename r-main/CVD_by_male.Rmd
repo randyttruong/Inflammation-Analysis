@@ -76,13 +76,36 @@ finalRaceList <- rbind(raceList1, raceList2)
 -> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
 
 ```{r crpByRace}
+# Frequency of hsCRP between different races
+# Box plot 
+
+# Current Issue: Trying to visualize the data given the five-number summary
+# Resolution: Use bxp? 
+
+# https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/bxp
+
+finalRaceList_CRP <- finalRaceList %>% 
+  slice(3, 8, 13, 18) 
+
+CRP_Graph <- ggplot(finalRaceList_CRP, aes(x = Race, y = Mean)) + 
+  geom_boxplot()
+
+CRP_Graph
+
 ```
 
 ```{r diseaseFrequency}
+# Frequency of Cardiovascular Disease (CVD) diagnoses 
+# Bar graph 
 
 ```
 
 ```{r crpByDisease,echo=FALSE}
+# Relationship between hsCRP and Cardiovascular Disease
+# Bar graph 
+
+# Relationship between hsCRP and Diabetes
+# Bar graph 
 
 ```
 
