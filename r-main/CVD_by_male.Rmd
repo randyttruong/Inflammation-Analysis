@@ -44,6 +44,8 @@ In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),
 "Ever diagnosed with diabetes W5" (11), "log10(hsCRP) W4" (24), "High hsCRP (>3 mg/L) W4" (25), and "Observations" (34).
 
 ```{r filterMaleAsian, message=FALSE}
+
+# Remember to rename first row 
 mAsianDFClean <- mutate(mAsianDF, Race = "Asian") %>% 
   slice(1, 11, 24, 25, 34) 
 
