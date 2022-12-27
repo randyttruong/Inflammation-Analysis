@@ -1,0 +1,36 @@
+,Mean,Standard Deviation,Percentile 25,Median,Percentile 75,Minimum,Maximum,Count
+Diagnosed with any CVD,0.123,0.329,0,0,0,0,1,382
+Ever diagnosed with high cholesterol W5,0.279,0.449,0,0,1,0,1,380
+Ever diagnosed with high blood pressure W5,0.213,0.41,0,0,0,0,1,380
+Ever diagnosed with heart disease W5,0.008,0.089,0,0,0,0,1,379
+Ever diagnosed with blood clot W5,0.003,0.051,0,0,0,0,1,378
+Ever diagnosed with a stroke W5,0.005,0.072,0,0,0,0,1,380
+Ever diagnosed with heart failure W5,0.008,0.089,0,0,0,0,1,379
+Ever diagnosed with atrial fibrillation W5,0.011,0.102,0,0,0,0,1,379
+Ever diagnosed with aortic aneurysm W5,0,0,0,0,0,0,0,381
+Ever diagnosed with arterial disease W5,0,0,0,0,0,0,0,380
+Ever diagnosed with diabetes W5,0.079,0.27,0,0,0,0,1,381
+Taking any CVD medication W5,0.123,0.329,0,0,0,0,1,382
+Taking high cholesterol medication (past 4wk) W5,0.06,0.238,0,0,0,0,1,382
+Taking high blood pressure medication (past 4wk) W5,0.1,0.3,0,0,0,0,1,381
+Taking heart disease medication (past 4wk) W5,0.005,0.072,0,0,0,0,1,382
+Taking blood clot medication (past 4wk) W5,0,0,0,0,0,0,0,382
+Taking stroke medication (past 4wk) W5,0.005,0.072,0,0,0,0,1,382
+Taking heart failure medication (past 4wk) W5,0.008,0.088,0,0,0,0,1,382
+Taking atrial fibrillation medication (past 4wk) W5,0.003,0.051,0,0,0,0,1,382
+Taking aortic aneurysm medication (past 4wk) W5,0,0,0,0,0,0,0,382
+Taking arterial disease medication (past 4wk) W5,0,0,0,0,0,0,0,382
+Taking diabetes medication (past 4wk) W5,0.021,0.143,0,0,0,0,1,382
+HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L),2.058,5.064,0.39,0.898,2.037,0,75,285
+log10(hsCRP) W4,-0.028,0.507,-0.409,-0.047,0.309,-1,2,285
+High hsCRP (>3 mg/L) W4,0.369,0.483,0,0,1,0,1,382
+Any infectious symptoms in last 2 weeks (y/n) W4,0.288,0.453,0,0,1,0,1,382
+Smoked any cigarettes in last 30 days,0.303,0.46,0,0,1,0,1,320
+Taking anti-inflammatory medication W4,0.212,0.41,0,0,0,0,1,320
+Self-reported sex W5,1,0,1,1,1,1,1,382
+Race/ethnicity (UNC),4,0,4,4,4,4,4,382
+Midpoint household income w4 (AH-constructed),84228.188,41473.186,62500,87500,1.25E+05,2500,150000,298
+Midpoint personal income w4 (AH-constructed),53641.304,30455.809,35000,62500,62500,0,150000,276
+College by W4 (AH-constructed),1.372,0.765,1,2,2,0,2,320
+Observations,382,,,,,,,
+Source: The National Longitudinal Study of Adolescent to Adult Health (Add Health),,,,,,,,

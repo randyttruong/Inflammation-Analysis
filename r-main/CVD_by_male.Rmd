@@ -1,0 +1,89 @@
+---
+title: "CRP vs CVD and Diabetes Incidence"
+author: "Randy Truong"
+date: "2022-12-25"
+output: html_document
+---
+# Installing Packages 
+
+```{r loadPackages, message=FALSE}
+library(tidyverse)
+library(readr)
+```
+
+# Data Setup  
+
+## TODOS: 
+-> Import all of the CSVs - **DONE**   
+-> Reduce the DFs to essential rows - **DONE**   
+  - CVD Diagnosis    
+  - Diabetes diagnosis    
+  - log(hsCRP)   
+  - Abnormally high CRP rates    
+  - # of Observations      
+        
+-> Create a race column - **DONE**    
+-> Join all of the datasets together - **DONE**   
+-> Create Plots     
+
+## Important Terminology: 
+CVD -> Cardiovascular Disease           
+CRP -> C-Reactive Protein           
+
+```{r loadData, message=FALSE}
+mAsianDF <- read_csv("./Data/mData/M_Asian.csv")
+mHispanicDF <- read_csv("./Data/mData/M_hispanic.csv")
+mBlackDF <- read_csv("./Data/mData/M_non-hispanic_black.csv")
+mWhiteDF <- read_csv("./Data/mData/M_non-hispanic_white.csv")
+
+```
+
+# Filtering of Data Sets 
+
+In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),  
+"Ever diagnosed with diabetes W5" (11), "log10(hsCRP) W4" (24), "High hsCRP (>3 mg/L) W4" (25), and "Observations" (34).
+
+```{r filterMaleAsian, message=FALSE}
+mAsianDFClean <- mutate(mAsianDF, Race = "Asian") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+mHispanicDFClean <- mutate(mHispanicDF, Race = "Hispanic") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+mBlackDFClean <- mutate(mBlackDF, Race = "Black") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+mWhiteDFClean <- mutate(mWhiteDF, Race = "White") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+```
+
+```{r createGiantFrame, message=FALSE}
+raceList1 <- rbind(mAsianDFClean, mHispanicDFClean)
+raceList2 <- rbind(mBlackDFClean, mWhiteDFClean)
+
+finalRaceList <- rbind(raceList1, raceList2)
+
+```
+
+
+# Data Visualization  
+
+## TODOS: 
+
+-> Visualize hsCRP rate by race     
+-> Visualize the frequency of CVD and the frequency of diabetes diagnoses    
+-> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
+
+```{r crpByRace}
+```
+
+```{r diseaseFrequency}
+
+```
+
+```{r crpByDisease,echo=FALSE}
+
+```
+
+
