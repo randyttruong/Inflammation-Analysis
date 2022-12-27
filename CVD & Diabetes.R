@@ -99,9 +99,9 @@ all_races_df <- full_join(white_and_hispanic_df, black_and_asian_df,
   filter(!is.na(Question),!is.na(Mean))
 
 #visualize 
-ggplot(all_races_df, aes(x = Mean, y = Race)) +
+ggplot(all_races_df, aes(x = Mean, y = Question)) +
   geom_boxplot()
 
-ggplot(all_races_df, aes(x= Mean, fill = Race)) +
+ggplot(all_races_df, aes(x= Mean, fill = Question)) +
   geom_histogram(bins = 10) + 
-  facet_wrap(~ Question)
+  facet_wrap(~ Race)
