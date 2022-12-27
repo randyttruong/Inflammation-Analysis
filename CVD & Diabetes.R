@@ -45,8 +45,8 @@ clean_asian_df <- asian_df %>%
   select(c(1,2)) %>%
   filter(Question %in% c("Diagnosed with any CVD",
                          "Ever diagnosed with diabetes W5")) %>%
-  cbind(race_column_hispanic) %>%
-  rename(Race = race_column_hispanic)
+  cbind(race_column_asian) %>%
+  rename(Race = race_column_asian)
 
 
 
@@ -82,8 +82,26 @@ black_and_asian_df <- inner_join(clean_asian_df, clean_black_df,
   select(c(Question,Mean.y,Race.y)) %>%
   rename(Mean = Mean.y, Race = Race.y)
 
-all_races_df <- inner_join(white_and_hispanic_df, black_and_asian_df, 
-                           by = "Question")
+all_races_df <- full_join(white_and_hispanic_df, black_and_asian_df, 
+                           by = "Race") %>%
+ pivot_longer(
+   cols = c(Mean.x, Mean.y),
+   names_to = "Mean.x",
+   values_to = "Mean.y"
+  ) %>%
+ pivot_longer(
+   cols = c(Question.x, Question.y),
+   names_to = "Question.x",
+   values_to = "Question.y"
+  ) %>%
+  select(c(Question.y,Mean.y,Race)) %>%
+  rename(Mean = Mean.y, Question = Question.y) %>%
+  filter(!is.na(Question),!is.na(Mean))
 
 #visualize 
+ggplot(all_races_df, aes(x = Mean, y = Race)) +
+  geom_boxplot()
 
+ggplot(all_races_df, aes(x= Mean, fill = Race)) +
+  geom_histogram(bins = 10) + 
+  facet_wrap(~ Question)
