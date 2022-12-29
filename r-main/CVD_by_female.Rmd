@@ -48,16 +48,16 @@ In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),
 
 # Remember to rename first row 
 fAsianDFClean <- mutate(fAsianDF, Race = "Asian") %>% 
-  slice(1, 11, 24, 25, 34) 
+  slice(1, 11, 23, 24, 25, 34) 
 
 fHispanicDFClean <- mutate(fHispanicDF, Race = "Hispanic") %>% 
-  slice(1, 11, 24, 25, 34) 
+  slice(1, 11, 23, 24, 25, 34) 
 
 fBlackDFClean <- mutate(fBlackDF, Race = "Black") %>% 
-  slice(1, 11, 24, 25, 34) 
+  slice(1, 11, 23, 24, 25, 34) 
 
 fWhiteDFClean <- mutate(fWhiteDF, Race = "White") %>% 
-  slice(1, 11, 24, 25, 34) 
+  slice(1, 11, 23, 24, 25, 34) 
 
 ```
 
@@ -65,7 +65,7 @@ fWhiteDFClean <- mutate(fWhiteDF, Race = "White") %>%
 raceList1 <- rbind(fAsianDFClean, fHispanicDFClean)
 raceList2 <- rbind(fBlackDFClean, fWhiteDFClean)
 
-finalRaceList <- rbind(raceList1, raceList2)
+finalRaceListF <- rbind(raceList1, raceList2)
 
 ```
 
@@ -79,20 +79,42 @@ finalRaceList <- rbind(raceList1, raceList2)
 -> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
 
 ```{r crpByRace}
-# Frequency of hsCRP between different races
-# Box plot 
+# Note: The matrix must be race x summary statistics in order of (min, Q1, Q2, Q3, max)
+#         [min] [q1] [q2] [q3] [max]
+# [Asian]
+# [Hispanic]
+# [Black]
+# [White]
 
-# Current Issue: Trying to visualize the data given the five-number summary
-# Resolution: Use bxp? 
+finalRaceListF_CRP <- finalRaceListF %>% 
+  slice(3, 9, 15, 21) 
 
-# https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/bxp
+fStats <- list(stats=t(cbind(finalRaceListF_CRP$Minimum,
+                 finalRaceListF_CRP$`Percentile 25`,
+                 finalRaceListF_CRP$Median,
+                 finalRaceListF_CRP$`Percentile 75`,
+                 finalRaceListF_CRP$Maximum)),
+               n=c(finalRaceListF_CRP$Count[1],
+                   finalRaceListF_CRP$Count[2],
+                   finalRaceListF_CRP$Count[3],
+                   finalRaceListF_CRP$Count[4]))
+                
 
-finalRaceList_CRP <- finalRaceList %>% 
-  slice(3, 8, 13, 18) 
+bxp(fStats, show.names = FALSE, main="Measure of hsCRP by Race (female)", xlab="hsCRP(mg/L)", ylab="Race", ylim = c(0,10), horizontal = TRUE)
+axis(2, at = 1:4, labels = c("Asian", "Hispanic", "Black", "White"))
 
-CRP_Graph <- ggplot(finalRaceList_CRP, aes(x = Race, y = Mean)) + 
-  geom_boxplot()
+```
+```{r diseaseFrequency}
+# Frequency of Cardiovascular Disease (CVD) diagnoses 
+# Bar graph 
 
-CRP_Graph
+```
+
+```{r crpByDisease,echo=FALSE}
+# Relationship between hsCRP and Cardiovascular Disease
+# Bar graph 
+
+# Relationship between hsCRP and Diabetes
+# Bar graph 
 
 ```
