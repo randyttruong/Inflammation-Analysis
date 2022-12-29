@@ -1,0 +1,98 @@
+---
+title: "(F) CRP vs CVD and Diabetes Incidence"
+author: "Randy Truong"
+date: "2022-12-29"
+output: html_document
+---
+
+# Installing Packages 
+
+```{r loadPackages, message=FALSE}
+library(tidyverse)
+library(readr)
+```
+
+# Data Setup  
+
+## TODOS: 
+-> Import all of the CSVs - **DONE**   
+-> Reduce the DFs to essential rows - **DONE**   
+  - CVD Diagnosis    
+  - Diabetes diagnosis    
+  - log(hsCRP)   
+  - Abnormally high CRP rates    
+  - # of Observations      
+        
+-> Create a race column - **DONE**    
+-> Join all of the datasets together - **DONE**   
+-> Create Plots     
+
+## Important Terminology: 
+CVD -> Cardiovascular Disease           
+CRP -> C-Reactive Protein           
+
+```{r loadData, message=FALSE}
+fAsianDF <- read_csv("./Data/fData/F_Asian.csv")
+fHispanicDF <- read_csv("./Data/fData/F_hispanic.csv")
+fBlackDF <- read_csv("./Data/fData/F_non-hispanic_black.csv")
+fWhiteDF <- read_csv("./Data/fData/F_non-hispanic_white.csv")
+
+```
+
+# Filtering of Data Sets 
+
+In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),  
+"Ever diagnosed with diabetes W5" (11), "log10(hsCRP) W4" (24), "High hsCRP (>3 mg/L) W4" (25), and "Observations" (34).
+
+```{r filterMaleAsian, message=FALSE}
+
+# Remember to rename first row 
+fAsianDFClean <- mutate(fAsianDF, Race = "Asian") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+fHispanicDFClean <- mutate(fHispanicDF, Race = "Hispanic") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+fBlackDFClean <- mutate(fBlackDF, Race = "Black") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+fWhiteDFClean <- mutate(fWhiteDF, Race = "White") %>% 
+  slice(1, 11, 24, 25, 34) 
+
+```
+
+```{r createGiantFrame, message=FALSE}
+raceList1 <- rbind(fAsianDFClean, fHispanicDFClean)
+raceList2 <- rbind(fBlackDFClean, fWhiteDFClean)
+
+finalRaceList <- rbind(raceList1, raceList2)
+
+```
+
+
+# Data Visualization  
+
+## TODOS: 
+
+-> Visualize hsCRP rate by race     
+-> Visualize the frequency of CVD and the frequency of diabetes diagnoses    
+-> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
+
+```{r crpByRace}
+# Frequency of hsCRP between different races
+# Box plot 
+
+# Current Issue: Trying to visualize the data given the five-number summary
+# Resolution: Use bxp? 
+
+# https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/bxp
+
+finalRaceList_CRP <- finalRaceList %>% 
+  slice(3, 8, 13, 18) 
+
+CRP_Graph <- ggplot(finalRaceList_CRP, aes(x = Race, y = Mean)) + 
+  geom_boxplot()
+
+CRP_Graph
+
+```
