@@ -1,36 +1,59 @@
 ---
-title: "CRP vs CVD and Diabetes Incidence"
+title: "(M) Disease Incidence Datasets and hsCRP"
 author: "Randy Truong"
 date: "2022-12-25"
 output: html_document
 ---
-# Installing Packages 
+
+# Introduction
+In this study, we seek to analyze the relationships between disease incidence and
+rates of hsCRP (C-Reactive Protein) among individuals of different races. More specifically, we 
+will be analyzing datasets from Asians, Hispanics, (Non-Hispanic) Whites, and
+(Non-Hispanic) Blacks. All of these datasets have been sourced from the 
+**AddHealth** database.
+
+## Preliminary Information 
+### Inflammation 
+Inflammation occurs in the human body in two different forms. <br> 
+
+**Acute inflammation** occurs as an innate response to pathoegens, stressors, 
+and injuries as a protective mechanism. Typically, symptoms of inflammation 
+include fever, chills, and fatigue/loss of energy. Acute inflammation typically 
+resolves in a timeframe of a few hours up to a few weeks. <br> 
+
+**Chronic inflammation**, however, results from acute 
+inflammation that has has not been completely eliminated
+from the immune system as well as frequent exposure to low
+magnitude stressors. The symptoms of chronic inflammation are similar
+to that of acute inflammation, except that they persist as opposed to 
+being temporary. <br>
+
+Immune cells will undergo a process called cytokinesis which results 
+in the secretion and creation of C-Reactive Protein from the liver. <br>
+
+### C-Reactive Protein 
+**C-Reactive Protein** (also known as CRP) is a non-volatile protein that is synthesized in response to the presence of cytokines. 
+Measurement of CRP is conducted with **highly-sensitive assays**, 
+which is why CRP is more commonly denoted as **hsCRP** (mg/L). <br> 
+
+### C-Reactive Protein and Disease Incidence
+
+## Methodology 
 
 ```{r loadPackages, message=FALSE}
+# Installing Packages
 library(tidyverse)
 library(readr)
 ```
 
 # Data Setup  
 
-## TODOS: 
--> Import all of the CSVs - **DONE**   
--> Reduce the DFs to essential rows - **DONE**   
-  - CVD Diagnosis    
-  - Diabetes diagnosis    
-  - log(hsCRP)   
-  - Abnormally high CRP rates    
-  - # of Observations      
-        
--> Create a race column - **DONE**    
--> Join all of the datasets together - **DONE**   
--> Create Plots     
-
-## Important Terminology: 
+### Important Terminology: 
 CVD -> Cardiovascular Disease           
 CRP -> C-Reactive Protein           
 
 ```{r loadData, message=FALSE}
+# Loading Data 
 mAsianDF <- read_csv("./Data/mData/M_Asian.csv")
 mHispanicDF <- read_csv("./Data/mData/M_hispanic.csv")
 mBlackDF <- read_csv("./Data/mData/M_non-hispanic_black.csv")
@@ -40,12 +63,17 @@ mDF <- read_csv("./Data/mData/allMales.csv")
 
 # Filtering of Data Sets 
 
+In this dataset, all of the questions from the survey possessed
+only two difference choices: **0,** meaning "No", and **1,** meaning "Yes." 
+
 In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),  
 "Ever diagnosed with diabetes W5" (11), "log10(hsCRP) W4" (24), "High hsCRP (>3 mg/L) W4" (25), and "Observations" (34).
 
-```{r filterMaleAsian, message=FALSE}
 
-# Remember to rename first row 
+
+```{r filterMaleAsian, message=FALSE}
+# Adding "Race" column
+# Filtering rows 
 mAsianDFClean <- mutate(mAsianDF, Race = "Asian") %>% 
   slice(1, 11, 23, 24, 25, 34) 
 
@@ -58,32 +86,32 @@ mBlackDFClean <- mutate(mBlackDF, Race = "Black") %>%
 mWhiteDFClean <- mutate(mWhiteDF, Race = "White") %>% 
   slice(1, 11, 23, 24, 25, 34) 
 
-mDFClean <- mDF %>% 
+mDFClean <- mutate(mDF, Race = "All") %>% 
   slice(1, 11, 23, 24, 25, 34)
 
 ```
 
 ```{r createGiantFrame, message=FALSE}
+# Merging DFs
 raceList1 <- rbind(mAsianDFClean, mHispanicDFClean)
 raceList2 <- rbind(mBlackDFClean, mWhiteDFClean)
+raceList3 <- rbind(raceList1, raceList2)
 
-finalRaceListM <- rbind(raceList1, raceList2)
+finalRaceListM <- rbind(raceList3, mDFClean)
 
 ```
 
 
 # Data Visualization  
 
-## TODOS: 
-
--> Visualize hsCRP rate by race     
--> Visualize the frequency of CVD and the frequency of diabetes diagnoses    
--> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
-
 ```{r crpByRace}
-finalRaceListM_CRP <- finalRaceListM %>% 
-  slice(3, 9, 15, 21)
+# Boxplot for measuring average amounts of CRP among the surveyed
 
+# Filtering to CRP rows 
+finalRaceListM_CRP <- finalRaceListM %>% 
+  slice(3, 9, 15, 21, 27)
+
+# Creating 5-Number Summary Data Object
 mStats <- list(stats=t(cbind(finalRaceListM_CRP$Minimum,
                       finalRaceListM_CRP$`Percentile 25`,
                       finalRaceListM_CRP$Median,
@@ -92,19 +120,41 @@ mStats <- list(stats=t(cbind(finalRaceListM_CRP$Minimum,
           n=c(finalRaceListM_CRP$Count[1],
               finalRaceListM_CRP$Count[2],
               finalRaceListM_CRP$Count[3],
-              finalRaceListM_CRP$Count[4]))
+              finalRaceListM_CRP$Count[4],
+              finalRaceListM_CRP$Count[5]))
 
-print(mStats)
 bxp(mStats, show.names = FALSE, main="Measure of hsCRP by Race (male)", ylab= "Race", xlab="hsCRP(mg/L)", ylim= c(0,10), horizontal = TRUE )
-axis(2, at = 1:4, labels = c("Asian", "Hispanic", "Black", "White")) # '2' means left axis 
-# axis(4) # '4' means bottom axis 
-
+axis(2, at = 1:5, labels = c("Asian", "Hisp.", "Black", "White", "All"))
 ```
 
-```{r diseaseFrequency}
-# Frequency of Cardiovascular Disease (CVD) diagnoses 
-# Bar graph 
+```{r diseaseFrequencyCVD}
+# Bargraph for measuring frequency of Cardiovascular Disease (CVD) diagnoses
 
+# Filtering the CVD diagnoses row
+finalRaceListM_CVD <- finalRaceListM %>% 
+  slice(1, 7, 13, 19, 25)
+
+# Building bargraph
+finalRaceListM_CVD_bar <- ggplot(finalRaceListM_CVD, aes(x = Race, y=Mean, fill=Race)) + 
+  geom_bar(stat="identity") + 
+  ylim(0,0.2) + 
+  labs(title = "Diagnosis of CVD by Race (Male)", x = "Race (Male)")  
+ 
+finalRaceListM_CVD_bar 
+```
+
+```{r diseaseFrequencyD}
+# Bargraph for measuring frequency of diabetes diagnoses
+finalRaceListM_D <- finalRaceListM %>% 
+  slice(2, 8, 14, 20, 26) 
+
+# Building bargraph
+finalRaceListM_D_bar <- ggplot(finalRaceListM_D, aes(x = Race, y = Mean, fill=Race)) + 
+  geom_bar(stat="identity") + 
+  ylim(0,0.12) + 
+  labs(title="Diagnoses of Diabetes by Race (Male)")
+
+finalRaceListM_D_bar
 ```
 
 ```{r crpByDisease,echo=FALSE}

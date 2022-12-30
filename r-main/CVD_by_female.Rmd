@@ -1,5 +1,5 @@
 ---
-title: "(F) CRP vs CVD and Diabetes Incidence"
+title: "(F) Disease Incidence Datasets and hsCRP"
 author: "Randy Truong"
 date: "2022-12-29"
 output: html_document
@@ -12,21 +12,6 @@ library(tidyverse)
 library(readr)
 ```
 
-# Data Setup  
-
-## TODOS: 
--> Import all of the CSVs - **DONE**   
--> Reduce the DFs to essential rows - **DONE**   
-  - CVD Diagnosis    
-  - Diabetes diagnosis    
-  - log(hsCRP)   
-  - Abnormally high CRP rates    
-  - # of Observations      
-        
--> Create a race column - **DONE**    
--> Join all of the datasets together - **DONE**   
--> Create Plots     
-
 ## Important Terminology: 
 CVD -> Cardiovascular Disease           
 CRP -> C-Reactive Protein           
@@ -36,6 +21,7 @@ fAsianDF <- read_csv("./Data/fData/F_Asian.csv")
 fHispanicDF <- read_csv("./Data/fData/F_hispanic.csv")
 fBlackDF <- read_csv("./Data/fData/F_non-hispanic_black.csv")
 fWhiteDF <- read_csv("./Data/fData/F_non-hispanic_white.csv")
+fDF <- read_csv("./Data/fData/allFemales.csv")
 
 ```
 
@@ -59,24 +45,23 @@ fBlackDFClean <- mutate(fBlackDF, Race = "Black") %>%
 fWhiteDFClean <- mutate(fWhiteDF, Race = "White") %>% 
   slice(1, 11, 23, 24, 25, 34) 
 
+fDFClean <- mutate(fDF, Race = "All") %>% 
+  slice(1, 11, 23, 24, 25, 34)
+
+colnames(fDFClean)[1] = "...1"
+
 ```
 
 ```{r createGiantFrame, message=FALSE}
 raceList1 <- rbind(fAsianDFClean, fHispanicDFClean)
 raceList2 <- rbind(fBlackDFClean, fWhiteDFClean)
-
-finalRaceListF <- rbind(raceList1, raceList2)
+raceList3 <- rbind(raceList1, raceList2)
+finalRaceListF <- rbind(raceList3, fDFClean)
 
 ```
 
 
 # Data Visualization  
-
-## TODOS: 
-
--> Visualize hsCRP rate by race     
--> Visualize the frequency of CVD and the frequency of diabetes diagnoses    
--> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
 
 ```{r crpByRace}
 # Note: The matrix must be race x summary statistics in order of (min, Q1, Q2, Q3, max)
@@ -87,7 +72,7 @@ finalRaceListF <- rbind(raceList1, raceList2)
 # [White]
 
 finalRaceListF_CRP <- finalRaceListF %>% 
-  slice(3, 9, 15, 21) 
+  slice(3, 9, 15, 21, 27) 
 
 fStats <- list(stats=t(cbind(finalRaceListF_CRP$Minimum,
                  finalRaceListF_CRP$`Percentile 25`,
@@ -97,17 +82,37 @@ fStats <- list(stats=t(cbind(finalRaceListF_CRP$Minimum,
                n=c(finalRaceListF_CRP$Count[1],
                    finalRaceListF_CRP$Count[2],
                    finalRaceListF_CRP$Count[3],
-                   finalRaceListF_CRP$Count[4]))
+                   finalRaceListF_CRP$Count[4],
+                   finalRaceListF_CRP$Count[5]))
+
                 
 
 bxp(fStats, show.names = FALSE, main="Measure of hsCRP by Race (female)", xlab="hsCRP(mg/L)", ylab="Race", ylim = c(0,10), horizontal = TRUE)
-axis(2, at = 1:4, labels = c("Asian", "Hispanic", "Black", "White"))
+axis(2, at = 1:5, labels = c("Asian", "Hisp.", "Black", "White", "All"))
 
 ```
 ```{r diseaseFrequency}
 # Frequency of Cardiovascular Disease (CVD) diagnoses 
 # Bar graph 
+finalRaceListF_CVD <- finalRaceListF %>% 
+  slice(1, 7, 13, 19, 25) 
 
+finalRaceListF_CVD_bar <- ggplot(finalRaceListF_CVD, aes(x=Race, y=Mean, fill=Race)) + 
+  geom_bar(stat="identity") + 
+  ylim(0,0.2) + 
+  labs(title = "Diagnosis of CVD by Race (Female)", x = "Race (Female)")
+finalRaceListF_CVD_bar
+
+# Frequency of Diabetes diagnoses
+# Bar graph 
+finalRaceListF_D <- finalRaceListF %>% 
+  slice(2, 8, 14, 20, 26)
+
+finalRaceListF_D_bar <- ggplot(finalRaceListF_D, aes(x=Race, y=Mean, fill=Race)) + 
+  geom_bar(stat="identity") + 
+  ylim(0, 0.12) + 
+  labs(title="Diagnosis of Diabetes by Race (Female)")
+finalRaceListF_D_bar
 ```
 
 ```{r crpByDisease,echo=FALSE}
