@@ -29,32 +29,28 @@ clean_asian_df <- mutate(asian_df, Race = "Asian") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5",
-    "log10(hsCRP) W4"
+    "Ever diagnosed with diabetes W5"
     ))
 
 clean_black_df <- mutate(black_df, Race = "Black") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5",
-    "log10(hsCRP) W4"
+    "Ever diagnosed with diabetes W5"
     ))
 
 clean_hispanic_df <- mutate(hispanic_df, Race = "Hispanic") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5",
-    "log10(hsCRP) W4"
+    "Ever diagnosed with diabetes W5"
     ))
 
 clean_white_df <- mutate(white_df, Race = "White") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5",
-    "log10(hsCRP) W4"
+    "Ever diagnosed with diabetes W5"
     ))
 ```
 
@@ -65,11 +61,14 @@ hispanic_and_white_df <- rbind(clean_hispanic_df, clean_white_df)
 all_races_df <- rbind(asian_and_black_df, hispanic_and_white_df)
 ```
 
-# Visualize Data
+# Visualize 
+```{r visualizeDataframe, message = FALSE}
+# https://www.statology.org/ggplot2-barplot-with-multiple-variables/
 
-```{r visualizeData, message = FALSE}
-#ignore for now
-ggplot(all_races_df, aes(x= Mean, fill = Question)) +
-  geom_histogram(bins = 10) + 
-  facet_wrap(~ Race)
+ggplot(all_races_df, aes(fill=Question, y=Mean, x=Race)) +
+  geom_bar(position='dodge', stat='identity') +
+  ggtitle('CVD & Diabetes Diagnosis by Race') +
+  labs(x = "Race", y = "Percentage of Sample Diagnosed") +
+  scale_fill_manual('Diagnosis', values=c('firebrick3','cornflowerblue'))
+  
 ```
