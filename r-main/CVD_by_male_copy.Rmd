@@ -1,0 +1,147 @@
+---
+title: "CRP vs CVD and Diabetes Incidence"
+author: "Randy Truong"
+date: "2022-12-25"
+output: html_document
+---
+# Installing Packages 
+
+```{r loadPackages, message=FALSE}
+library(tidyverse)
+library(readr)
+```
+
+# Data Setup  
+
+## TODOS: 
+-> Import all of the CSVs - **DONE**   
+-> Reduce the DFs to essential rows - **DONE**   
+  - CVD Diagnosis    
+  - Diabetes diagnosis    
+  - log(hsCRP)   
+  - Abnormally high CRP rates    
+  - # of Observations      
+        
+-> Create a race column - **DONE**    
+-> Join all of the datasets together - **DONE**   
+-> Create Plots     
+
+## Important Terminology: 
+CVD -> Cardiovascular Disease           
+CRP -> C-Reactive Protein           
+
+```{r loadData, message=FALSE}
+mAsianDF <- read_csv("./Data/mData/M_Asian.csv")
+mHispanicDF <- read_csv("./Data/mData/M_hispanic.csv")
+mBlackDF <- read_csv("./Data/mData/M_non-hispanic_black.csv")
+mWhiteDF <- read_csv("./Data/mData/M_non-hispanic_white.csv")
+mDF <- read_csv("./Data/mData/allMales.csv")
+```
+
+# Filtering of Data Sets 
+
+In the datasets, we mostly just care about the rows "Diagnosed with CVD" (1),  
+"Ever diagnosed with diabetes W5" (11), "log10(hsCRP) W4" (24), "High hsCRP (>3 mg/L) W4" (25), and "Observations" (34).
+
+```{r filterMaleAsian, message=FALSE}
+
+# Remember to rename first row 
+mAsianDFClean <- mutate(mAsianDF, Race = "Asian") %>% 
+  slice(1, 11, 23, 24, 25, 34) 
+
+mHispanicDFClean <- mutate(mHispanicDF, Race = "Hispanic") %>% 
+  slice(1, 11, 23, 24, 25, 34) 
+
+mBlackDFClean <- mutate(mBlackDF, Race = "Black") %>% 
+  slice(1, 11, 23, 24, 25, 34) 
+
+mWhiteDFClean <- mutate(mWhiteDF, Race = "White") %>% 
+  slice(1, 11, 23, 24, 25, 34) 
+
+mDFClean <- mDF %>% 
+  slice(1, 11, 23, 24, 25, 34)
+
+```
+
+```{r createGiantFrame, message=FALSE}
+raceList1 <- rbind(mAsianDFClean, mHispanicDFClean)
+raceList2 <- rbind(mBlackDFClean, mWhiteDFClean)
+
+finalRaceListM <- rbind(raceList1, raceList2)
+
+```
+
+
+# Data Visualization  
+
+## TODOS: 
+
+-> Visualize hsCRP rate by race     
+-> Visualize the frequency of CVD and the frequency of diabetes diagnoses    
+-> Compare log(hsCRP) to CVD / Compare log(hsCRP) to Diabetes    
+
+```{r generic}
+# data
+d1 <- c(1,2,3,4,5)
+d2 <- c(1,2,3,5,8,13,21,34)
+
+# summaries (generated with quantile and structured accordingly)
+z1 <- list(
+    stats=matrix(quantile(d1, c(0.05,0.25,0.5,0.75,0.85))),
+    n=length(d1)
+)
+z2 <- list(
+    stats=matrix(quantile(d2, c(0.05,0.25,0.5,0.75,0.85))),
+    n=length(d2)
+)
+
+# merging the summaries appropriately
+z <- list(
+    stats=cbind(z1$stats,z2$stats),
+    n=c(z1$n,z2$n)
+)
+
+# check result
+print(z)
+
+# call bxp with needed parameters ("at" can/should also be used here)
+bxp(z=z,varwidth=TRUE)
+```
+
+```{r crpByRace}
+finalRaceListM_CRP <- finalRaceListM %>% 
+  slice(3, 9, 15, 21)
+
+mStats <- list(stats=t(cbind(finalRaceListM_CRP$Minimum,
+                      finalRaceListM_CRP$`Percentile 25`,
+                      finalRaceListM_CRP$Median,
+                      finalRaceListM_CRP$`Percentile 75`,
+                      finalRaceListM_CRP$Maximum)),
+          n=c(finalRaceListM_CRP$Count[1],
+              finalRaceListM_CRP$Count[2],
+              finalRaceListM_CRP$Count[3],
+              finalRaceListM_CRP$Count[4]))
+
+print(mStats)
+bxp(mStats, show.names = FALSE, main="Measure of hsCRP by Race (male)", ylab= "Race", xlab="hsCRP(mg/L)", ylim= c(0,10), horizontal = TRUE )
+axis(2, at = 1:4, labels = c("Asian", "Hispanic", "Black", "White")) # '2' means left axis 
+# axis(4) # '4' means bottom axis 
+
+```
+
+```{r diseaseFrequency}
+# Frequency of Cardiovascular Disease (CVD) diagnoses 
+# Bar graph 
+
+```
+
+```{r crpByDisease,echo=FALSE}
+# Relationship between hsCRP and Cardiovascular Disease
+# Bar graph 
+
+# Relationship between hsCRP and Diabetes
+# Bar graph 
+
+```
+
+
