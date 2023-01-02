@@ -13,10 +13,10 @@ library(readr)
 # Load Data
 
 ```{r loadData, message = FALSE}
-hispanic_df <- read_csv("Data/Hispanic.csv")
-white_df <- read_csv("Data/Non_hispanic_white.csv")
-black_df <- read_csv("Data/Non_hispanic_black.csv")
-asian_df <- read_csv("Data/Asians.csv")
+hispanic_df <- read_csv("Data/raceData/Hispanic.csv")
+white_df <- read_csv("Data/raceData/Non_hispanic_white.csv")
+black_df <- read_csv("Data/raceData/Non_hispanic_black.csv")
+asian_df <- read_csv("Data/raceData/Asians.csv")
 ```
 
 # Tidy Data 
@@ -29,28 +29,32 @@ clean_asian_df <- mutate(asian_df, Race = "Asian") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5"
+    "Ever diagnosed with diabetes W5",
+    "HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L)"
     ))
 
 clean_black_df <- mutate(black_df, Race = "Black") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5"
+    "Ever diagnosed with diabetes W5",
+    "HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L)"
     ))
 
 clean_hispanic_df <- mutate(hispanic_df, Race = "Hispanic") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5"
+    "Ever diagnosed with diabetes W5",
+    "HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L)"
     ))
 
 clean_white_df <- mutate(white_df, Race = "White") %>%
   rename(Question = ...1) %>%
   filter(Question %in% c(
     "Diagnosed with any CVD",
-    "Ever diagnosed with diabetes W5"
+    "Ever diagnosed with diabetes W5",
+    "HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L)"
     ))
 ```
 
@@ -61,11 +65,48 @@ hispanic_and_white_df <- rbind(clean_hispanic_df, clean_white_df)
 all_races_df <- rbind(asian_and_black_df, hispanic_and_white_df)
 ```
 
+# Visualize Boxplot 
+
+## Omitted Data Values 
+Whenever limiting the range for the "HIGH SENSTVTY C-RCTV PROTN (hsCRP)(MG/L)" variable, we decided to omit 
+the maximum values since, the data states that at most, participants of the survey had hsCRP levels between 75 and 205 (mg/L), which is highly unlikely, as they generally result from extremely severe and rare cases of inflammation. 
+Therefore, we deicded to keep the range of the boxplot between 0 and 10, since this is where 75% of the data
+fell between. 
+
+```{r crpByRace, message = FALSE}
+all_races_df_CRP <- all_races_df %>% 
+  slice(3,6,9,12)
+
+# Note: The matrix must be race x summary statistics in order of (min, Q1, Q2, Q3, max)
+#         [min] [q1] [q2] [q3] [max]
+# [Asian]
+# [Hispanic]
+# [Black]
+# [White]
+
+
+raceStats <- list(stats=t(cbind(all_races_df_CRP$Minimum,
+                 all_races_df_CRP$`Percentile 25`,
+                 all_races_df_CRP$Median,
+                 all_races_df_CRP$`Percentile 75`,
+                 all_races_df_CRP$Maximum)),
+               n=c(all_races_df_CRP$Count[1],
+                   all_races_df_CRP$Count[2],
+                   all_races_df_CRP$Count[3],
+                   all_races_df_CRP$Count[4]))
+  
+bxp(raceStats, show.names = FALSE, main="Measure of hsCRP by Race (male and female)", xlab="hsCRP(mg/L)", ylab="Race", ylim = c(0,10), horizontal = TRUE)
+axis(2, at = 1:4, labels = c("Asian", "Hisp.", "Black", "White"))
+```
+
 # Visualize 
 ```{r visualizeDataframe, message = FALSE}
 # https://www.statology.org/ggplot2-barplot-with-multiple-variables/
 
-ggplot(all_races_df, aes(fill=Question, y=Mean, x=Race)) +
+all_races_df_bar <- all_races_df %>% 
+  slice(1,2,4,5,7,8,10,11)
+
+ggplot(all_races_df_bar, aes(fill=Question, y=Mean, x=Race)) +
   geom_bar(position='dodge', stat='identity') +
   ggtitle('CVD & Diabetes Diagnosis by Race') +
   labs(x = "Race", y = "Percentage of Sample Diagnosed") +

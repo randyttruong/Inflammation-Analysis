@@ -36,9 +36,46 @@ in the secretion and creation of C-Reactive Protein from the liver. <br>
 Measurement of CRP is conducted with **highly-sensitive assays**, 
 which is why CRP is more commonly denoted as **hsCRP** (mg/L). <br> 
 
-### C-Reactive Protein and Disease Incidence
+### C-Reactive Protein as an Indicator of Disease 
+A CRP level of 3.0 mg/L is associated with a high risk for cardiovascular disease among white demographics; however, the association between CRP levels and Cardiovascular Disease has not been evaluated among other demographics. 
+
+Instead, CRP levels have just been assumed to be associated with a greater risk of developing diabetes.
+
+### Measuring C-Reactive Protein as a Predictor of Disease Incidence
+
+## Motivation 
+From this possible relationship between CRP and CVD, as well as the lack of
+statistical research of CRP and CVD and disease among other demographics, we
+have decided to analyze the relationship between CRP and disease, especially
+considering that statistics show that Black and Hispanic groups tend to 
+possess higher levels of CRP compared to Whites, while Asians exhibit the 
+lowest levels of CRP out of all ethnic demographics. 
+
+## Hypothesis 
+In this study, we hypothesize that Blacks and Hispanics would have the greatest
+levels of CRP, and thus, would have higher rates of CVD and diabetes diagnoses.
+Therefore, CRP is a strong predictor of CVD and diabetes among these 
+demographics. 
 
 ## Methodology 
+For our analysis, we have chosen datasets of CRP levels and diagnoses of CVD
+and Diabetes that have been collected over a period of 10 years, in which
+the CRP levels were collected between individuals of ages 24-32 years, 
+while their diagnoses of CVD and Diabetes were eventually collected among
+those same individuals when they were between 33-43 years old.
+
+All of these datasets come from AddHealth, where the baseline CRP levels 
+were measured in 2008 and their diabetes diagnoses were collected between
+2016-2018. 
+
+Individuals in this study were grouped based on their racial/ethnic origins 
+(which were self-reported by the individuals). Among the variables measured 
+in the datasets, we looked at CVD and Diabetes Diagnoses, hsCRP levels, 
+and whether or not these hsCRP levels were abnormally high.
+
+Important excluded individuals include pregnant individuals as well as any
+individuals with confirmed CVD or Diabetes diagnoses during the 2008 
+collection of CRP levels. 
 
 ```{r loadPackages, message=FALSE}
 # Installing Packages

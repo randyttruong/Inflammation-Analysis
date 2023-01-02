@@ -6,8 +6,77 @@ Professor Thomas McDade, Jesus Serrano, Stacy Caeiro, and Randy Truong
 
 # Abstract 
 
-# Introduction 
-In this project, we will be analyzing inflammation and its possible correlation between race and ethnicity as a possible predictor of disease incidence between different races and ethnicities. We will first be analyzing what exactly inflammation is, its chemical and biological origins, the repercussions of these origins origins, and its correlation with disease on a grand scale. 
+# Introduction
+In this study, we seek to analyze the relationships between disease incidence and
+rates of hsCRP (C-Reactive Protein) among individuals of different races. More specifically, we 
+will be analyzing datasets from Asians, Hispanics, (Non-Hispanic) Whites, and
+(Non-Hispanic) Blacks. All of these datasets have been sourced from the 
+**AddHealth** database.
+
+## Preliminary Information 
+### Inflammation 
+Inflammation occurs in the human body in two different forms. <br> 
+
+**Acute inflammation** occurs as an innate response to pathoegens, stressors, 
+and injuries as a protective mechanism. Typically, symptoms of inflammation 
+include fever, chills, and fatigue/loss of energy. Acute inflammation typically 
+resolves in a timeframe of a few hours up to a few weeks. <br> 
+
+**Chronic inflammation**, however, results from acute 
+inflammation that has has not been completely eliminated
+from the immune system as well as frequent exposure to low
+magnitude stressors. The symptoms of chronic inflammation are similar
+to that of acute inflammation, except that they persist as opposed to 
+being temporary. <br>
+
+Immune cells will undergo a process called cytokinesis which results 
+in the secretion and creation of C-Reactive Protein from the liver. <br>
+
+### C-Reactive Protein 
+**C-Reactive Protein** (also known as CRP) is a non-volatile protein that is synthesized in response to the presence of cytokines. 
+Measurement of CRP is conducted with **highly-sensitive assays**, 
+which is why CRP is more commonly denoted as **hsCRP** (mg/L). <br> 
+
+### C-Reactive Protein as an Indicator of Disease 
+A CRP level of 3.0 mg/L is associated with a high risk for cardiovascular disease among white demographics; however, the association between CRP levels and Cardiovascular Disease has not been evaluated among other demographics. 
+
+Instead, CRP levels have just been assumed to be associated with a greater risk of developing diabetes.
+
+### Measuring C-Reactive Protein as a Predictor of Disease Incidence
+
+## Motivation 
+From this possible relationship between CRP and CVD, as well as the lack of
+statistical research of CRP and CVD and disease among other demographics, we
+have decided to analyze the relationship between CRP and disease, especially
+considering that statistics show that Black and Hispanic groups tend to 
+possess higher levels of CRP compared to Whites, while Asians exhibit the 
+lowest levels of CRP out of all ethnic demographics. 
+
+## Hypothesis 
+In this study, we hypothesize that Blacks and Hispanics would have the greatest
+levels of CRP, and thus, would have higher rates of CVD and diabetes diagnoses.
+Therefore, CRP is a strong predictor of CVD and diabetes among these 
+demographics. 
+
+## Methodology 
+For our analysis, we have chosen datasets of CRP levels and diagnoses of CVD
+and Diabetes that have been collected over a period of 10 years, in which
+the CRP levels were collected between individuals of ages 24-32 years, 
+while their diagnoses of CVD and Diabetes were eventually collected among
+those same individuals when they were between 33-43 years old.
+
+All of these datasets come from AddHealth, where the baseline CRP levels 
+were measured in 2008 and their diabetes diagnoses were collected between
+2016-2018. 
+
+Individuals in this study were grouped based on their racial/ethnic origins 
+(which were self-reported by the individuals). Among the variables measured 
+in the datasets, we looked at CVD and Diabetes Diagnoses, hsCRP levels, 
+and whether or not these hsCRP levels were abnormally high.
+
+Important excluded individuals include pregnant individuals as well as any
+individuals with confirmed CVD or Diabetes diagnoses during the 2008 
+collection of CRP levels. 
 
 # Datasets 
 
