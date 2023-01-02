@@ -113,12 +113,25 @@ collection of CRP levels.
 ![CVD_Diabetes_Race_Barplot](https://user-images.githubusercontent.com/120422997/210270008-9bc61896-df01-40cf-bae4-02f1dcb3bedb.png)
 This chart visualizes the proportion of the sample diagnosed with CVD or Diabetes categorized by race. As seen here, both CVD and diabetes are most diagnosed within the Black population. 
 
+![CVD_Male_Barplot](./imgs/Male/CVD_Male.png)
+![CVD_Female_Barplot](./imgs/Female/CVD_Female.png)
+
 # Conclusions 
 Overall, the relationship between inflammation and CVD and diabetes presence differs between ethnic groups. CRP levels are highest in Hispanic and Black populations. Additionally, CVD and diabetes is most diagnosed within the Black population. Moreever, the relationship between log(hsCRP) and CVD is strongest within the Asian population. Finally, log(hsCRP) is the strongest predictor of diabetes within White and Hispanic populations. 
 
 We suggest that future studies can examine different factors that may account for these differences in relationships by race. 
 
-# Citatoins 
+# Citations 
+Harvard Health. *Understanding acute and chronic inflammation.*
+Pahwa R, et al. *Chronic Inflammation.* <br>
+Shrivastava, AK., et al. (2015). *C-reactive protein, inflammation and coronary heart disease.* <br> 
+Pearson, TA, et al. (2003). *Markers of Inflammation and Cardiovascular Disease.* <br>
+McDade, TW. (2012). *Early environments and the ecology of inflammation.* <br>
+Saijo, Y. (2004). *Relationship between C-reactive protein and visceral adipose tissue in healthy Japanese subjects.* <br>
+Pradhan AD, et al. (2001). *C-reactive protein, Interleukin 6, and risk of developing type 2 diabetes mellitus* <br>
+Nazmi, A and Victora, CG. (2007). *Socioeconomic and racial/ethnic differentials of C-reactive protein levels: a systematic review of population-based studies* <br>
+Nazmi, A and Victora, CG. (2007). *Socioeconomic and racial/ethnic differentials of C-reactive protein levels: a systematic review of population-based studies* <br>
+
 
 # Acknowledgements
 Special thanks to (in no order of importance): 

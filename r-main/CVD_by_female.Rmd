@@ -91,7 +91,7 @@ bxp(fStats, show.names = FALSE, main="Measure of hsCRP by Race (female)", xlab="
 axis(2, at = 1:5, labels = c("Asian", "Hisp.", "Black", "White", "All"))
 
 ```
-```{r diseaseFrequency}
+```{r diseaseFrequencyCVD}
 # Frequency of Cardiovascular Disease (CVD) diagnoses 
 # Bar graph 
 finalRaceListF_CVD <- finalRaceListF %>% 
@@ -102,7 +102,9 @@ finalRaceListF_CVD_bar <- ggplot(finalRaceListF_CVD, aes(x=Race, y=Mean, fill=Ra
   ylim(0,0.2) + 
   labs(title = "Diagnosis of CVD by Race (Female)", x = "Race (Female)")
 finalRaceListF_CVD_bar
+```
 
+```{r diseaseFrequencyD}
 # Frequency of Diabetes diagnoses
 # Bar graph 
 finalRaceListF_D <- finalRaceListF %>% 
