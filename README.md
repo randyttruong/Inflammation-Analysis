@@ -8,6 +8,28 @@ CVD_by_female.Rmd: Data cleaning and visualization of inflammation and disease c
 CVD_by_male.Rmd: Data cleaning and visualization of inflammation and disease correlation of males by race. 
 
 # Abstract 
+Acute inflammation is an innate immune response that protects the human body from
+damage caused by pathogens, stressors and injuries, and typically subsides once the
+biological threat has been managed. Chronic, low-grade inflammation is non-resolving
+and can increase an individual’s susceptibility for cardiovascular disease (CVD) and/or
+diabetes. Quantifying inflammation is done through the use of the biomarker C-reactive
+protein (CRP), with higher CRP levels associated with a high risk for developing CVD.
+However, this association is based on data collected from European and EuropeanAmerican 
+populations, and has not been established among other race/ethnic
+demographic groups. Additionally, CRP has not been evaluated as a predictor of diabetes
+across demographic groups. As such, I sought out to investigate CRP as a predictor of
+disease incidence across different race/ethnic groups. Based on a literature review of how
+CRP levels vary across racial and ethnic demographics, I hypothesized that CRP would
+be a stronger predictor of disease in Hispanics and African-Americans than in Whites and
+Asian-Americans. Using data from a large, nationally representative sample of adults in
+the US (AddHealth), I evaluated statistical models using baseline CRP as a predictor of
+disease 8 to 10 years later for all races/ethnicities, and then stratified by race/ethnicity. I
+found that within the AddHealth dataset, log-transformed CRP values are a stronger
+predictor of CVD among Asian-Americans and log-transformed CRP values are a
+stronger predictor of diabetes among Whites and Hispanics. Results from this analysis
+could promote a more nuanced understanding of why disease incidence varies between
+racial and ethnic groups and with more support could be used to identify high risk
+populations at earlier stages of disease progression.
 
 # Introduction
 In this study, we seek to analyze the relationships between disease incidence and
@@ -96,6 +118,8 @@ Overall, the relationship between inflammation and CVD and diabetes presence dif
 
 We suggest that future studies can examine different factors that may account for these differences in relationships by race. 
 
+# Citatoins 
+
 # Acknowledgements
 Special thanks to (in no order of importance): 
 
@@ -107,3 +131,5 @@ Special thanks to (in no order of importance):
 
 
 **Keegan Krause**, **Dr. Koning**, and **Dr. Miller** for providing in lab training 
+
+
