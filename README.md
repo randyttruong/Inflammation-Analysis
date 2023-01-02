@@ -2,7 +2,10 @@
 
 Professor Thomas McDade, Jesus Serrano, Stacy Caeiro, and Randy Truong 
 
-# Description 
+# Code Behind Project 
+CVD_Diabetes_by_Race.Rmd: Data cleaning and visualization of inflammation and disease correlation by race. 
+CVD_by_female.Rmd: Data cleaning and visualization of inflammation and disease correlation of females by race. 
+CVD_by_male.Rmd: Data cleaning and visualization of inflammation and disease correlation of males by race. 
 
 # Abstract 
 
