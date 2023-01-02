@@ -104,8 +104,6 @@ Important excluded individuals include pregnant individuals as well as any
 individuals with confirmed CVD or Diabetes diagnoses during the 2008 
 collection of CRP levels. 
 
-# Datasets 
-
 # Hypotheses 
 - Hispanics and Blacks will have the highest levels of CRP. 
 - CRP levels will be a strong predictor of CVD and Diabetes in Hispanic and Black populations. 
