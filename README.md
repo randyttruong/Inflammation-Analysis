@@ -112,7 +112,7 @@ collection of CRP levels.
 
 # Visualizations
 ![CVD_Diabetes_Race_Barplot](https://user-images.githubusercontent.com/120422997/210270008-9bc61896-df01-40cf-bae4-02f1dcb3bedb.png)
-This chart visualizes the proportion of the sample diagnosed with CVD or Diabetes categorized by race. As seen here, both CVD and diabetes are most diagnosed within the Black population. 
+This chart visualizes the proportion of the sample diagnosed with CVD or Diabetes categorized by race. As seen here, both CVD and diabetes are most diagnosed within the Black population. Additionally, there is a similar presence of CVD between Asian, White, and Hispanic populations. Furthermore, there is a similar proportion of diabetes diagnosis within Asian and Hispanic populations, with the White population having the lowest proportion of diagnosis. 
 
 # Conclusions 
 Overall, the relationship between inflammation and CVD and diabetes presence differs between ethnic groups. CRP levels are highest in Hispanic and Black populations. Additionally, CVD and diabetes is most diagnosed within the Black population. Moreever, the relationship between log(hsCRP) and CVD is strongest within the Asian population. Finally, log(hsCRP) is the strongest predictor of diabetes within White and Hispanic populations. 
